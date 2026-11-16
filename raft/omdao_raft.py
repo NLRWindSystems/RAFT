@@ -338,8 +338,11 @@ class RAFT_OMDAO(om.ExplicitComponent):
         
         self.i_design = 0
         if modeling_opt['save_designs']:
-            if not os.path.exists(os.path.join(analysis_options['general']['folder_output'],'raft_designs')):
-                os.makedirs(os.path.join(analysis_options['general']['folder_output'],'raft_designs'))
+            design_dir = os.path.join(
+                analysis_options['general']['folder_output'], 'raft_designs'
+            )
+            # Parallel runs can create the shared directory at the same time.
+            os.makedirs(design_dir, exist_ok=True)
                 
     def compute(self, inputs, outputs, discrete_inputs, discrete_outputs):
 
