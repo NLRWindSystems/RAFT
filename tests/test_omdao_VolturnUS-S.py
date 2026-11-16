@@ -1,5 +1,7 @@
-import openmdao.api as om
 import os
+from pathlib import Path
+
+import openmdao.api as om
 import yaml
 
 from raft.omdao_raft import RAFT_Group
@@ -44,6 +46,31 @@ def test_omdao_raft():
 
 
     prob.run_model()
+
+
+def test_save_designs_handles_concurrent_directory_creation(tmp_path, monkeypatch):
+    options_file = Path(__file__).with_name("test_data") / weis_options_file
+    with options_file.open(encoding="utf-8") as file:
+        options = yaml.safe_load(file)
+
+    options["modeling_options"]["save_designs"] = True
+    options["analysis_options"]["general"]["folder_output"] = str(tmp_path)
+    problem = om.Problem(model=RAFT_Group(**options), reports=False)
+
+    design_dir = tmp_path / "raft_designs"
+    makedirs = os.makedirs
+
+    def makedirs_with_peer(path, *args, **kwargs):
+        if Path(path) == design_dir:
+            # Simulate another rank creating the directory just before this one.
+            design_dir.mkdir(exist_ok=True)
+        return makedirs(path, *args, **kwargs)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(os, "makedirs", makedirs_with_peer)
+        problem.setup()
+
+    assert design_dir.is_dir()
 
 
 def test_omdao_downwind_raft():
