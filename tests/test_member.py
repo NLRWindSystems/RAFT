@@ -177,8 +177,8 @@ desired_hydrostatics_Fvec = [
     np.array([ 0.00000000e+00,  0.00000000e+00,  1.18853039e+07,  5.14645543e+07,  1.48566298e+08,  0.00000000e+00]),
     np.array([ 0.00000000e+00,  0.00000000e+00,  2.68178069e+07,  0.00000000e+00, -9.52759894e-08,  0.00000000e+00]),
     np.array([ 0.00000000e+00,  0.00000000e+00,  2.07992846e+07,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]),
-    np.array([ 0.00000000e+00,  0.00000000e+00,  1.17548315e+07,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]),
-    np.array([ 0.00000000e+00,  0.00000000e+00,  9.31432035e+06,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]),
+    np.array([ 0.00000000e+00,  0.00000000e+00,  1.07120396e+07,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]),
+    np.array([ 0.00000000e+00,  0.00000000e+00,  8.55268527e+06,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]),
     np.array([ 0.00000000e+00,  0.00000000e+00,  3.15894995e+05,  0.00000000e+00, -1.57947498e+06,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  6.31789991e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  3.15894995e+05,  0.00000000e+00,  1.57947498e+06,  0.00000000e+00]),
     np.array([ 0.00000000e+00,  0.00000000e+00,  4.02210000e+05,  0.00000000e+00, -2.01105000e+06,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  8.04420000e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  4.02210000e+05,  0.00000000e+00,  2.01105000e+06,  0.00000000e+00]),
 ]
@@ -234,15 +234,15 @@ desired_hydrostatics_Cmat = [
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]]),
     np.array([[ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  4.25807113e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -1.27460609e+08,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -1.27460609e+08,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  3.34397819e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -1.20629609e+08,  0.00000000e+00,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -1.20629609e+08,  0.00000000e+00],
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]]),
     np.array([[ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  3.48075817e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -1.00704868e+08,  0.00000000e+00,  0.00000000e+00],
-              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -9.97855691e+07,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  2.80418349e+05,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -9.55592051e+07,  0.00000000e+00,  0.00000000e+00],
+              [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -9.49989395e+07,  0.00000000e+00],
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00]]),
     np.array([[ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
               [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00],
@@ -291,8 +291,8 @@ desired_hydrostatics_r_center = [
     np.array([-6.25000000e+00,  2.16504286e+00, -7.50000000e+00]),
     np.array([ 3.55271368e-15,  0.00000000e+00, -2.00000000e+01]),
     np.array([ 0.00000000e+00,  0.00000000e+00, -2.00000000e+01]),
-    np.array([ 0.00000000e+00,  0.00000000e+00, -1.09653220e+01]),
-    np.array([ 0.00000000e+00,  0.00000000e+00, -1.08810428e+01]),
+    np.array([ 0.00000000e+00,  0.00000000e+00, -1.13437380e+01]),
+    np.array([ 0.00000000e+00,  0.00000000e+00, -1.12231906e+01]),
     np.array([ 2.00000000e+01,  0.00000000e+00, -2.00000000e+01]),
     np.array([ 2.00000000e+01,  0.00000000e+00, -2.00000000e+01]),
 ]
@@ -615,6 +615,76 @@ def test_hydrostatics(index_and_member):
     assert_allclose(r_center, desired_hydrostatics_r_center[index], atol=1e-5, verbose=True)
     assert_allclose(xWP, desired_hydrostatics_WP[index][0], atol=1e-5, verbose=True)
     assert_allclose(yWP, desired_hydrostatics_WP[index][1], atol=1e-5, verbose=True)
+
+
+@pytest.mark.parametrize(
+    "shape, dimensions, waterplane_area",
+    [
+        ("circular", [4.0, 1.0], np.pi),
+        ("rectangular", [[4.0, 2.0], [1.0, 0.5]], 2.0),
+    ],
+    ids=["circular", "rectangular"],
+)
+@pytest.mark.parametrize("reverse", [False, True], ids=["bottom-first", "top-first"])
+def test_hydrostatics_tapered_rigid_waterline(shape, dimensions, waterplane_area, reverse):
+    ends = [[0.0, 0.0, -2.0], [0.0, 0.0, 1.0]]
+    if reverse:
+        ends.reverse()
+        dimensions = dimensions[::-1]
+    member = Member({
+        "name": "tapered column", "type": "rigid", "shape": shape,
+        "rA": ends[0], "rB": ends[1], "stations": [0, 1], "d": dimensions,
+    }, 0)
+    member.setPosition()
+
+    force, stiffness, volume, center, area, _, _, _ = member.getHydrostatics(
+        rRP=np.zeros(3), rho=1.0, g=1.0,
+    )
+
+    # At height h above the bottom, the submerged area is A_wp * (2 - h/2)**2.
+    # Integrating from h=0 to h=2 gives volume 14/3 * A_wp and z_CB = -17/14.
+    assert_allclose(volume, (14.0 / 3.0) * waterplane_area)
+    assert_allclose(center, [0.0, 0.0, -17.0 / 14.0], atol=1e-12)
+    assert_allclose(area, waterplane_area)
+    assert_allclose(force[2], volume)
+    assert_allclose(stiffness[2, 2], waterplane_area)
+
+
+def test_hydrostatics_inclined_rigid_member_end_order():
+    ends = [[1.0, 2.0, -2.0], [4.0, 6.0, 1.0]]
+    member_data = {
+        "name": "inclined cylinder", "type": "rigid", "shape": "circular",
+        "rA": ends[0], "rB": ends[1], "stations": [0, 1], "d": 2.0,
+    }
+    reference = np.array([2.0, 1.0, -0.5])
+    ascending = Member(member_data, 0)
+    descending = Member(dict(member_data, rA=ends[1], rB=ends[0]), 0)
+    ascending.setPosition()
+    descending.setPosition()
+
+    ascending_result = ascending.getHydrostatics(rRP=reference)
+    descending_result = descending.getHydrostatics(rRP=reference)
+    for actual, expected in zip(descending_result, ascending_result):
+        assert_allclose(actual, expected, atol=1e-9)
+
+
+def test_hydrostatics_rigid_member_station_on_waterline():
+    member = Member({
+        "name": "cylinder", "type": "rigid", "shape": "circular",
+        "rA": [0.0, 0.0, -2.0], "rB": [0.0, 0.0, 2.0],
+        "stations": [0, 1, 2], "d": 2.0,
+    }, 0)
+    member.setPosition()
+
+    _, stiffness, volume, center, area, _, _, _ = member.getHydrostatics(
+        rRP=np.zeros(3), rho=1.0, g=1.0,
+    )
+
+    assert_allclose(volume, 2.0 * np.pi)
+    assert_allclose(center, [0.0, 0.0, -1.0])
+    assert_allclose(area, np.pi)
+    assert_allclose(stiffness[2, 2], np.pi)
+
 
 def test_hydroConstants(index_and_member):
     index, member = index_and_member

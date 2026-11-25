@@ -870,9 +870,12 @@ class Member:
         xWP = 0
         yWP = 0
 
-        # angles
-        beta = np.arctan2(self.q[1],self.q[0])  # member incline heading from x axis
-        phi  = np.arctan2(np.sqrt(self.q[0]**2 + self.q[1]**2), self.q[2])  # member incline angle from vertical
+        # The rigid-member waterline formulas use the axis pointing upward.
+        q = self.q
+        if self.type == 'rigid' and q[2] < 0:
+            q = -q
+        beta = np.arctan2(q[1], q[0])  # member incline heading from x axis
+        phi = np.arctan2(np.sqrt(q[0]**2 + q[1]**2), q[2])  # member incline angle from vertical
 
         # precalculate trig functions
         cosPhi=np.cos(phi)
@@ -891,21 +894,25 @@ class Member:
                 rA = self.rA + self.q*self.stations[i-1]
                 rB = self.rA + self.q*self.stations[i  ]
 
-                # partially submerged case
-                if rA[2]*rB[2] <= 0:    # if member crosses (or touches) water plane
+                # Count a station on the waterplane only in the segment below it.
+                if min(rA[2], rB[2]) < 0 <= max(rA[2], rB[2]):
+                    i_lower, i_upper = i-1, i
+                    if rA[2] > rB[2]:
+                        rA, rB = rB, rA
+                        i_lower, i_upper = i_upper, i_lower
 
                     # -------------------- buoyancy and waterplane area properties ------------------------
 
                     xWP = intrp(0, rA[2], rB[2], rA[0], rB[0])                     # x coordinate where member axis cross the waterplane [m]
                     yWP = intrp(0, rA[2], rB[2], rA[1], rB[1])                     # y coordinate where member axis cross the waterplane [m]
                     if self.shape=='circular':
-                        dWP = intrp(0, rA[2], rB[2], self.d[i], self.d[i-1])       # diameter of member where its axis crosses the waterplane [m]
+                        dWP = intrp(0, rA[2], rB[2], self.d[i_lower], self.d[i_upper])  # waterplane diameter [m]
                         AWP = (np.pi/4)*dWP**2                                     # waterplane area of member [m^2]
                         IWP = (np.pi/64)*dWP**4                                    # waterplane moment of inertia [m^4] approximates as a circle
                         IxWP = IWP                                                 # MoI of circular waterplane is the same all around
                         IyWP = IWP                                                 # MoI of circular waterplane is the same all around
                     elif self.shape=='rectangular':
-                        slWP = intrp(0, rA[2], rB[2], self.sl[i], self.sl[i-1])    # side lengths of member where its axis crosses the waterplane [m]
+                        slWP = intrp(0, rA[2], rB[2], self.sl[i_lower], self.sl[i_upper])  # waterplane side lengths [m]
                         AWP = slWP[0]*slWP[1]                                      # waterplane area of rectangular member [m^2]
                         IxWP = (1/12)*slWP[0]*slWP[1]**3                           # waterplane MoI [m^4] about the member's LOCAL x-axis, not the global x-axis
                         IyWP = (1/12)*slWP[0]**3*slWP[1]                           # waterplane MoI [m^4] about the member's LOCAL y-axis, not the global y-axis
@@ -915,18 +922,18 @@ class Member:
                         IxWP = I_rot[0,0]
                         IyWP = I_rot[1,1]
 
-                    LWP = abs(rA[2]/cosPhi)                   # get length of segment along member axis that is underwater [m]
+                    LWP = -rA[2]/q[2]                         # underwater length along the member axis [m]
 
                     # Assumption: the areas and MoI of the waterplane are as if the member were completely vertical, i.e. it doesn't account for phi
                     # This can be fixed later on if needed. We're using this assumption since the fix wouldn't significantly affect the outputs
 
                     # Total enclosed underwater volume [m^3] and distance along axis from end A to center of buoyancy of member [m]
                     if self.shape=='circular':
-                        V_UWi, hc = FrustumVCV(self.d[i-1], dWP, LWP)
+                        V_UWi, hc = FrustumVCV(self.d[i_lower], dWP, LWP)
                     elif self.shape=='rectangular':
-                        V_UWi, hc = FrustumVCV(self.sl[i-1], slWP, LWP)
+                        V_UWi, hc = FrustumVCV(self.sl[i_lower], slWP, LWP)
 
-                    r_center = rA + self.q*hc          # coordinates of center of volume of this segment in the global frame [m]
+                    r_center = rA + q*hc              # center of volume of this segment in the global frame [m]
 
 
                     # >>>> question: should this function be able to use displaced/rotated values? <<<<
@@ -936,7 +943,7 @@ class Member:
                     # derivatives from global to local
                     dPhi_dThx  = -sinBeta                     # \frac{d\phi}{d\theta_x} = \sin\beta
                     dPhi_dThy  =  cosBeta
-                    dFz_dz   = -rho*g*AWP /cosPhi
+                    dFz_dz   = -rho*g*AWP /q[2]
 
                     # note: below calculations are based on untapered case, but
                     # temporarily approximated for taper by using dWP (diameter at water plane crossing) <<< this is rough
@@ -945,11 +952,11 @@ class Member:
                     Fz = rho*g* V_UWi
                     M = 0
                     if self.shape=='circular': # Need to find the equivalent of this for the rectangular case
-                        M  = -rho*g*pi*( dWP**2/32*(2.0 + tanPhi**2) + 0.5*(rA[2]/cosPhi)**2)*sinPhi  # moment about axis of incline
+                        M  = -rho*g*pi*( dWP**2/32*(2.0 + tanPhi**2) + 0.5*LWP**2)*sinPhi  # moment about axis of incline
                     Mx = M*dPhi_dThx
                     My = M*dPhi_dThy
 
-                    Fvec += translateForce3to6DOF(np.array([0, 0, rho*g*V_UWi]), rA-rRP)
+                    Fvec += translateForce3to6DOF(np.array([0, 0, Fz]), rA-rRP)
                     Fvec[3] += Mx                # moment about x axis [N-m]
                     Fvec[4] += My                # moment about y axis [N-m]
 
@@ -977,7 +984,7 @@ class Member:
 
 
                 # fully submerged case
-                elif rA[2] <= 0 and rB[2] <= 0:
+                elif rA[2] < 0 and rB[2] < 0:
 
                     # displaced volume [m^3] and distance along axis from end A to center of buoyancy of member [m]
                     if self.shape=='circular':
